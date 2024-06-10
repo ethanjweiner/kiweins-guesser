@@ -65,7 +65,7 @@ export const quizTypeLabels: Record<QuizType, string> = {
   fill_in_the_blank: "Fill in the Blank",
 };
 
-export type RoundInfo = {
+export type RoundInformation = {
   roundsTotal: number;
   roundsCorrect: number;
   roundsCompleted: number;
@@ -73,5 +73,5 @@ export type RoundInfo = {
 
 export type Session<Q extends Quiz> = {
   quiz: Q;
-  roundInfo: RoundInfo;
+  roundInfo: RoundInformation;
 };

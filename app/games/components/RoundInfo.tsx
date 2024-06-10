@@ -1,6 +1,10 @@
-import { RoundInfo } from "@/app/types";
+import { RoundInformation } from "@/app/types";
 
-export default function RoundInfo({ roundInfo }: { roundInfo: RoundInfo }) {
+export default function RoundInfo({
+  roundInfo,
+}: {
+  roundInfo: RoundInformation;
+}) {
   const numIncorrect = roundInfo.roundsCompleted - roundInfo.roundsCorrect;
 
   return (
