@@ -33,7 +33,7 @@ export default function PicsQuizArea({
       setIsCorrect={setIsCorrect}
     >
       <div
-        className="relative w-full h-72 rounded-xl shadow-slate-300 shadow-md mb-10"
+        className="relative w-full h-72 rounded-xl shadow-slate-300 shadow-md mb-8"
         style={{ paddingBottom: "66.67%" }}
       >
         {!isLoaded && <MainSkeleton height={72} />}

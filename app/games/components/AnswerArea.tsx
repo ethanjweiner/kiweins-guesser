@@ -14,7 +14,7 @@ export default function AnswerArea<Q extends Quiz>({
   const options = generateAnswerOptions(session.quiz);
 
   return (
-    <form className="flex flex-col justify-start space-y-4">
+    <form className="flex flex-col justify-start">
       {session.quiz.quizType === "multiple_choice" ? (
         <MultipleChoiceQuiz options={options} onAnswer={onAnswer} />
       ) : (
