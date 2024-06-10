@@ -97,7 +97,18 @@ function getMonthFromExifDate(dateString: string): string | null {
 }
 
 async function getS3Object(key: string) {
-  const client = new S3Client({ region: "us-east-1" });
+  if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+    throw new Error("AWS credentials not found");
+  }
+
+  const client = new S3Client({
+    region: "us-east-1",
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    },
+  });
+
   const command = new GetObjectCommand({
     Bucket: "kiwiens-images",
     Key: key,
