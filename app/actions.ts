@@ -11,21 +11,23 @@ export async function goToNextRound({
   gameType: GameType;
   gaveCorrectAnswer: boolean;
 }) {
-  const sessionData = getSession();
+  const session = getSession();
+  const newRoundsCompleted = session.roundInfo.roundsCompleted + 1;
 
-  const newRoundsCompleted = sessionData.roundInfo.roundsCompleted + 1;
+  const roundInfo = {
+    ...session.roundInfo,
+    roundsCompleted: newRoundsCompleted,
+    roundsCorrect: gaveCorrectAnswer
+      ? session.roundInfo.roundsCorrect + 1
+      : session.roundInfo.roundsCorrect,
+  };
 
   updateSession({
-    roundInfo: {
-      ...sessionData.roundInfo,
-      roundsCompleted: newRoundsCompleted,
-      roundsCorrect: gaveCorrectAnswer
-        ? sessionData.roundInfo.roundsCorrect + 1
-        : sessionData.roundInfo.roundsCorrect,
-    },
+    ...session,
+    roundInfo,
   });
 
-  if (newRoundsCompleted >= sessionData.roundInfo.roundsTotal) {
+  if (newRoundsCompleted >= session.roundInfo.roundsTotal) {
     return redirect("/results");
   }
 

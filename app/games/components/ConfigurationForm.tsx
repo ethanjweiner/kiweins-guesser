@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import Select from "../../components/Select";
-import { Session, GameType, Quiz } from "../../types";
+import { Session, GameType, Quiz, GuessProperty } from "../../types";
 import { setSession } from "../../utils/session";
 import { redirect } from "next/navigation";
 import {
@@ -25,7 +25,6 @@ export default function ConfigurationForm<Q extends Quiz>({
         gameType,
         guessProperty: formData.get("guess-type"),
         quizType: formData.get("quiz-type"),
-        roundData: null as any,
       } as Q,
       roundInfo: {
         roundsTotal: Number(formData.get("num-rounds")),
@@ -41,6 +40,7 @@ export default function ConfigurationForm<Q extends Quiz>({
   const guessPropertyOptions =
     gameType === "tunes" ? tuneGuessPropertyOptions : picsGuessPropertyOptions;
 
+  // TODO: Add loading to form?
   return (
     <form
       action={startRound}

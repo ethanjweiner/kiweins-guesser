@@ -1,9 +1,13 @@
-import { Suspense } from "react";
 import Game from "../../components/Game";
+import { getPageData } from "@/app/utils/session";
+
+import { TuneQuiz } from "@/app/types";
+
 import TunesQuizData from "../components/TunesQuizData";
+import { Suspense } from "react";
 import { Fallback } from "../../components/suspense/Fallback";
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
   searchParams: { round: number };

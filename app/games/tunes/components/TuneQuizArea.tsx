@@ -1,10 +1,11 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { QuizArea } from "../../components/QuizArea";
 import { Session, TuneQuiz } from "@/app/types";
 import Embed from "./Embed";
 import Hider from "./Hider";
+import { Fallback } from "../../components/suspense/Fallback";
 
 export default function TunesQuizArea({
   session,
@@ -12,6 +13,12 @@ export default function TunesQuizArea({
   session: Session<TuneQuiz>;
 }) {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const memoizedSetIsLoaded = useCallback(
+    (isLoaded: boolean) => setIsLoaded(isLoaded),
+    []
+  );
 
   const { track } = session.quiz.roundData;
 
@@ -36,12 +43,19 @@ export default function TunesQuizArea({
       correctAnswer={correctAnswer}
       isCorrect={isCorrect}
       setIsCorrect={setIsCorrect}
+      showInput={isLoaded}
     >
       {isCorrect === null &&
+        isLoaded &&
         ["song_name", "artist"].includes(session.quiz.guessProperty) && (
           <Hider />
         )}
-      <Embed songId={session.quiz.roundData.track.id} />
+      {!isLoaded && <Fallback mainHeight={96} />}
+      <Embed
+        setIsLoaded={memoizedSetIsLoaded}
+        isLoaded={isLoaded}
+        songId={session.quiz.roundData.track.id}
+      />
     </QuizArea>
   );
 }

@@ -31,6 +31,7 @@ export default function PicsQuizArea({
       correctAnswer={correctAnswer}
       isCorrect={isCorrect}
       setIsCorrect={setIsCorrect}
+      showInput={true}
     >
       <div
         className="relative w-full h-72 rounded-xl shadow-slate-300 shadow-md mb-8"

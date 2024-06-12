@@ -1,7 +1,7 @@
-import Game from "../../components/Game";
 import { Suspense } from "react";
-import { Fallback } from "../../components/suspense/Fallback";
+import Game from "../../components/Game";
 import PicsQuizData from "../components/PicsQuizData";
+import { Fallback } from "../../components/suspense/Fallback";
 
 export default async function Page({
   searchParams,

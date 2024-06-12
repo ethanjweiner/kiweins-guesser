@@ -1,20 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Fallback } from "../../components/suspense/Fallback";
+import { useEffect } from "react";
 
-export default function Embed({ songId }: { songId: string }) {
-  const [isLoaded, setIsLoaded] = useState(false);
-
+export default function Embed({
+  songId,
+  isLoaded,
+  setIsLoaded,
+}: {
+  songId: string;
+  isLoaded: boolean;
+  setIsLoaded: (isLoaded: boolean) => void;
+}) {
   useEffect(() => {
     setIsLoaded(false);
-  }, [songId]);
+  }, [songId, setIsLoaded]);
 
   return (
     <>
-      {!isLoaded && <Fallback mainHeight={96} />}
       <iframe
-        className="h-96 w-full mx-auto"
+        className={`h-96 w-full mx-auto ${isLoaded ? "block" : "hidden"}`}
         id="track-iframe"
         style={{ borderRadius: "12px" }}
         src={`https://open.spotify.com/embed/track/${songId}?utm_source=generator&theme=0`}

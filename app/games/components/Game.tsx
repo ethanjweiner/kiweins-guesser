@@ -1,21 +1,21 @@
 import GuessTypeIndicator from "../components/FieldIndicator";
 import RoundInfo from "../components/RoundInfo";
-import { getSession } from "@/app/utils/session";
 import { findGuessOption } from "@/app/utils/game";
+import { Quiz, Session } from "@/app/types";
+import { getSession } from "@/app/utils/session";
 
-export default async function Game({
+export default async function Game<Q extends Quiz>({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const sessionData = getSession();
-
-  const guessOption = findGuessOption(sessionData);
+  const session = getSession<Q>();
+  const guessOption = findGuessOption(session);
 
   return (
     <div className="max-w-96 w-full p-8 pt-20 sm:pt-32">
       <GuessTypeIndicator guessOption={guessOption!} />
-      <RoundInfo roundInfo={sessionData.roundInfo} />
+      <RoundInfo roundInfo={session.roundInfo} />
       {children}
     </div>
   );

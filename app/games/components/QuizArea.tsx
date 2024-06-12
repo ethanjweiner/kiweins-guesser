@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import AnswerReveal from "./AnswerReveal";
 import AnswerArea from "./AnswerArea";
 import { Session, Quiz } from "@/app/types";
@@ -11,22 +10,15 @@ export function QuizArea<Q extends Quiz>({
   correctAnswer,
   isCorrect,
   setIsCorrect,
+  showInput,
 }: {
   children: React.ReactNode;
   session: Session<Q>;
   correctAnswer: string;
   isCorrect: boolean | null;
   setIsCorrect: (isCorrect: boolean | null) => void;
+  showInput: boolean;
 }) {
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  if (!hydrated) {
-    return null;
-  }
-
   const handleAnswer = (answer: string) => {
     setIsCorrect(evaluateAnswer(answer, session.quiz));
   };
@@ -42,15 +34,19 @@ export function QuizArea<Q extends Quiz>({
   return (
     <div className="relative">
       {children}
-      {isCorrect === null ? (
-        <AnswerArea session={session} onAnswer={handleAnswer} />
-      ) : (
-        <AnswerReveal
-          correctAnswer={correctAnswer}
-          guessProperty={session.quiz.guessProperty}
-          isCorrect={isCorrect}
-          onContinue={handleContinue}
-        />
+      {showInput && (
+        <>
+          {isCorrect === null ? (
+            <AnswerArea session={session} onAnswer={handleAnswer} />
+          ) : (
+            <AnswerReveal
+              correctAnswer={correctAnswer}
+              guessProperty={session.quiz.guessProperty}
+              isCorrect={isCorrect}
+              onContinue={handleContinue}
+            />
+          )}
+        </>
       )}
     </div>
   );

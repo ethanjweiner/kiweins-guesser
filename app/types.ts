@@ -6,14 +6,15 @@ export type Track = {
   tempo?: number;
 };
 
+// TODO: Collapse both of these?
 export type TuneRoundData = {
   track: Track;
-  incorrectOptions: string[];
+  options: string[];
 };
 
 export type PicRoundData = {
   photo: Photo;
-  incorrectOptions: string[];
+  options: string[];
 };
 
 export type Photo = {
@@ -75,3 +76,13 @@ export type Session<Q extends Quiz> = {
   quiz: Q;
   roundInfo: RoundInformation;
 };
+
+export function isTuneGame(
+  session: Session<Quiz>
+): session is Session<TuneQuiz> {
+  return session.quiz.gameType === "tunes";
+}
+
+export function isPicGame(session: Session<Quiz>): session is Session<PicQuiz> {
+  return session.quiz.gameType === "pics";
+}

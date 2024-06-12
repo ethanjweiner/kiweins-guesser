@@ -1,10 +1,27 @@
+import "server-only";
+
 import { cookies } from "next/headers";
-import { Quiz, Session } from "../types";
+import { GameType, Quiz, Session } from "../types";
+import { getRoundData } from "./quiz_data";
 
 export function setSession<Q extends Quiz>(data: Session<Q>) {
   cookies().set("session", JSON.stringify(data), {
     httpOnly: true, // determines whether http requests are the only way to access the cookie (server-side)
   });
+}
+
+export async function getPageData<Q extends Quiz>(
+  gameType: GameType
+): Promise<Session<Q>> {
+  const session = getSession<Q>();
+
+  return {
+    ...session,
+    quiz: {
+      ...session.quiz,
+      roundData: await getRoundData(gameType, session.quiz.guessProperty),
+    },
+  };
 }
 
 export function getSession<Q extends Quiz>(): Session<Q> {

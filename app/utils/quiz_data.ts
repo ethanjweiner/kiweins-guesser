@@ -1,4 +1,5 @@
 import "server-only";
+
 import {
   GetObjectCommand,
   ListObjectsCommand,
@@ -10,21 +11,47 @@ import EXIF from "exif-js";
 
 import { getPlaylistTracks, getRandomTrack } from "./spotify";
 import {
+  GameType,
+  GuessProperty,
   PicRoundData,
-  Track,
   TuneRoundData,
   TunesGuessProperty,
 } from "../types";
-import { getIncorrectMonths, getIncorrectOptions } from "./round_data";
+import {
+  generatePicAnswerOptions,
+  getIncorrectMonths,
+  getTuneOptions,
+} from "./round_data";
+
+const playlistIds = [
+  "3oyeOWvFI7bGLXfqKrM0Py",
+  "2C4RRVazAvmyShWMC3KNf8",
+  "7nqMpW8vaB0zDTCIvuHEIt",
+  "42P328dV0Z4njaUXm5jNhr",
+];
+
+export async function getRoundData(
+  gameType: GameType,
+  guessProperty: GuessProperty
+) {
+  if (gameType === "tunes") {
+    return getTuneRoundData({
+      guessProperty: guessProperty as TunesGuessProperty,
+    });
+  }
+
+  if (gameType === "pics") {
+    return getPicRoundData();
+  }
+
+  throw new Error(`Invalid game type: ${gameType}`);
+}
 
 export async function getTuneRoundData({
   guessProperty,
 }: {
   guessProperty: TunesGuessProperty;
 }): Promise<TuneRoundData> {
-  const playlistIds = JSON.parse(fs.readFileSync("playlists.json", "utf-8"))
-    .playlistIds as string[];
-
   const allTracks = (
     await Promise.all(playlistIds.map(getPlaylistTracks))
   ).flat();
@@ -32,12 +59,31 @@ export async function getTuneRoundData({
   const track = await getRandomTrack(allTracks, {
     withTempo: guessProperty === "bpm",
   });
-  const incorrectOptions = getIncorrectOptions(allTracks, track, guessProperty);
+
+  const options = getTuneOptions(track, allTracks, guessProperty);
 
   return {
     track,
-    incorrectOptions,
+    options,
   };
+}
+
+export function shuffleOptions(
+  correctOption: string,
+  incorrectOptions: string[]
+): string[] {
+  const correctIndex = Math.floor(Math.random() * 4);
+  const options: string[] = [];
+
+  for (let i = 0; i < 4; i++) {
+    if (i === correctIndex) {
+      options.push(correctOption);
+    } else {
+      options.push(incorrectOptions.pop()!);
+    }
+  }
+
+  return options;
 }
 
 export async function getPicRoundData(): Promise<PicRoundData> {
@@ -66,14 +112,14 @@ export async function getPicRoundData(): Promise<PicRoundData> {
     throw new Error("No month found");
   }
 
-  const incorrectOptions = getIncorrectMonths(month);
+  const photo = {
+    key,
+    month,
+  };
 
   return {
-    photo: {
-      key,
-      month,
-    },
-    incorrectOptions,
+    photo,
+    options: generatePicAnswerOptions(photo, "month"),
   };
 }
 
