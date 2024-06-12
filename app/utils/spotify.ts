@@ -1,5 +1,8 @@
 import fs from "fs";
 import { Track } from "../types";
+import path from "path";
+
+const tokensPath = path.resolve(path.join(process.cwd(), "tokens.json"));
 
 export async function getRandomTrack(
   allTracks: Track[],
@@ -54,7 +57,7 @@ export async function getPlaylistTracks(playlistId: string): Promise<Track[]> {
 
 export const refreshSpotifyToken = async () => {
   // If the access token has expired, fetch a refresh token
-  const refreshToken = JSON.parse(fs.readFileSync("tokens.json", "utf-8"))
+  const refreshToken = JSON.parse(fs.readFileSync(tokensPath, "utf-8"))
     .spotify_refresh_token as string;
 
   const clientId = process.env.SPOTIFY_CLIENT_ID;
@@ -81,7 +84,7 @@ export const refreshSpotifyToken = async () => {
     spotify_refresh_token: data.refresh_token || refreshToken,
   };
 
-  fs.writeFileSync("tokens.json", JSON.stringify(newTokens));
+  fs.writeFileSync(tokensPath, JSON.stringify(newTokens));
 
   return {
     accessToken: data.access_token as string,
@@ -100,7 +103,7 @@ const fetchSpotifyApi = async ({
   method?: string;
   headers?: HeadersInit;
 }): Promise<any> => {
-  const accessToken = JSON.parse(fs.readFileSync("tokens.json", "utf-8"))
+  const accessToken = JSON.parse(fs.readFileSync(tokensPath, "utf-8"))
     .spotify_access_token as string;
 
   const response = await fetch(`https://api.spotify.com/v1/${path}`, {

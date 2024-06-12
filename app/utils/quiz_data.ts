@@ -17,11 +17,7 @@ import {
   TuneRoundData,
   TunesGuessProperty,
 } from "../types";
-import {
-  generatePicAnswerOptions,
-  getIncorrectMonths,
-  getTuneOptions,
-} from "./round_data";
+import { generatePicAnswerOptions, getTuneOptions } from "./round_data";
 
 const playlistIds = [
   "3oyeOWvFI7bGLXfqKrM0Py",
