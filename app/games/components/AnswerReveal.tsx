@@ -1,5 +1,6 @@
 "use client";
 
+import { useGameType } from "@/app/hooks/useGameType";
 import { GuessProperty, combineGuessPropertyLabels } from "@/app/types";
 import { Coiny, Inter } from "next/font/google";
 
@@ -18,6 +19,9 @@ export default function AnswerReveal({
   isCorrect: boolean;
   onContinue: () => void;
 }) {
+  const gameType = useGameType();
+  const gameColor = gameType === "tunes" ? "violet" : "pink";
+
   return (
     <div>
       {isCorrect ? (
@@ -39,7 +43,7 @@ export default function AnswerReveal({
       )}
       <button
         type="submit"
-        className={`${coiny.className} mt-8 bg-blue-500 text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
+        className={`${coiny.className} mt-8 bg-${gameColor}-500 text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
         onClick={onContinue}
       >
         Continue
