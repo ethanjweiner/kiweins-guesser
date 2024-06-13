@@ -8,7 +8,7 @@ export function MultipleChoiceQuiz({
   onAnswer: (answer: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid -mt-4 grid-cols-1 gap-2">
       {options.length &&
         options.map(
           (option) =>

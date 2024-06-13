@@ -49,7 +49,7 @@ export default function ConfigurationForm<Q extends Quiz>({
     <div
       className={`z-1 absolute left-0 -mb-5 pt-4 w-full rounded-t-3xl flex place-content-center bg-white ${interLight.className}`}
     >
-      <form action={startRound} className="max-w-96 grid flex-1 space-y-12">
+      <form action={startRound} className="max-w-96 grid flex-1 space-y-8">
         <div className="relative p-8 pt-2">
           <Select
             name="guess-type"
