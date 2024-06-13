@@ -12,9 +12,13 @@ export default function MultipleChoiceItem({
   const gameType = useGameType();
   const gameColor = gameType === "tunes" ? "violet" : "pink";
 
+  const borderClass = `border-${gameColor}-600`;
+  const fromClass = `from-${gameColor}-500`;
+  const toClass = `to-${gameColor}-500`;
+
   return (
     <div
-      className={`relative w-full rounded-full border-4 border-${gameColor}-600 bg-gradient-to-br from-${gameColor}-500 to-${gameColor}-300 px-8 py-2 text-center text-xl text-white ${className}`}
+      className={`relative w-full rounded-full border-4 ${borderClass} bg-gradient-to-br ${fromClass} ${toClass} px-8 py-2 text-center text-xl text-white ${className}`}
       onClick={onClick}
     >
       <div className="text-center">{option.trim()}</div>

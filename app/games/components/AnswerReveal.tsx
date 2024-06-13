@@ -20,7 +20,8 @@ export default function AnswerReveal({
   onContinue: () => void;
 }) {
   const gameType = useGameType();
-  const gameColor = gameType === "tunes" ? "violet" : "pink";
+  const buttonClassName =
+    gameType === "tunes" ? "bg-violet-500" : "bg-pink-500";
 
   return (
     <div>
@@ -43,7 +44,7 @@ export default function AnswerReveal({
       )}
       <button
         type="submit"
-        className={`${coiny.className} mt-8 bg-${gameColor}-500 text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
+        className={`${coiny.className} mt-8 ${buttonClassName} text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
         onClick={onContinue}
       >
         Continue

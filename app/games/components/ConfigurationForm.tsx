@@ -41,7 +41,8 @@ export default function ConfigurationForm<Q extends Quiz>({
   const guessPropertyOptions =
     gameType === "tunes" ? tuneGuessPropertyOptions : picsGuessPropertyOptions;
 
-  const gameColor = gameType === "tunes" ? "violet" : "pink";
+  const buttonClassName =
+    gameType === "tunes" ? "bg-violet-500" : "bg-pink-500";
 
   // TODO: Add loading to form?
   return (
@@ -73,7 +74,7 @@ export default function ConfigurationForm<Q extends Quiz>({
           />
           <button
             type="submit"
-            className={`${coiny.className} mt-8 bg-${gameColor}-500 text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
+            className={`${coiny.className} mt-8 ${buttonClassName} text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
           >
             Start Round
           </button>
