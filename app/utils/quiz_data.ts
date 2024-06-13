@@ -6,7 +6,6 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 
-import fs from "fs";
 import EXIF from "exif-js";
 
 import { getPlaylistTracks, getRandomTrack } from "./spotify";

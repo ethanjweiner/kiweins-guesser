@@ -1,8 +1,5 @@
-import fs from "fs";
 import { Track } from "../types";
-import path from "path";
-
-const tokensPath = path.resolve(path.join(process.cwd(), "tokens.json"));
+import { kv } from "@vercel/kv";
 
 export async function getRandomTrack(
   allTracks: Track[],
@@ -57,8 +54,7 @@ export async function getPlaylistTracks(playlistId: string): Promise<Track[]> {
 
 export const refreshSpotifyToken = async () => {
   // If the access token has expired, fetch a refresh token
-  const refreshToken = JSON.parse(fs.readFileSync(tokensPath, "utf-8"))
-    .spotify_refresh_token as string;
+  const refreshToken = (await kv.get("spotify_refresh_token")) as string;
 
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -79,12 +75,8 @@ export const refreshSpotifyToken = async () => {
 
   const data = await response.json();
 
-  const newTokens = {
-    spotify_access_token: data.access_token,
-    spotify_refresh_token: data.refresh_token || refreshToken,
-  };
-
-  fs.writeFileSync(tokensPath, JSON.stringify(newTokens));
+  kv.set("spotify_access_token", data.access_token);
+  kv.set("spotify_refresh_token", data.refresh_token || refreshToken);
 
   return {
     accessToken: data.access_token as string,
@@ -103,8 +95,7 @@ const fetchSpotifyApi = async ({
   method?: string;
   headers?: HeadersInit;
 }): Promise<any> => {
-  const accessToken = JSON.parse(fs.readFileSync(tokensPath, "utf-8"))
-    .spotify_access_token as string;
+  const accessToken = await kv.get("spotify_access_token");
 
   const response = await fetch(`https://api.spotify.com/v1/${path}`, {
     method,
