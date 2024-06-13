@@ -8,6 +8,7 @@ import {
   quizTypeOptions,
   tuneGuessPropertyOptions,
 } from "../../constants";
+import { useGameType } from "@/app/hooks/useGameType";
 
 const interLight = Inter({ weight: "300", subsets: ["latin"] });
 const coiny = Coiny({ weight: "400", subsets: ["latin"] });
@@ -40,6 +41,8 @@ export default function ConfigurationForm<Q extends Quiz>({
   const guessPropertyOptions =
     gameType === "tunes" ? tuneGuessPropertyOptions : picsGuessPropertyOptions;
 
+  const gameColor = gameType === "tunes" ? "violet" : "pink";
+
   // TODO: Add loading to form?
   return (
     <div
@@ -70,7 +73,7 @@ export default function ConfigurationForm<Q extends Quiz>({
           />
           <button
             type="submit"
-            className={`${coiny.className} mt-8 bg-blue-500 text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
+            className={`${coiny.className} mt-8 bg-${gameColor}-500 text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
           >
             Start Round
           </button>
