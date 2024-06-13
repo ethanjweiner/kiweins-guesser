@@ -1,10 +1,11 @@
 "use client";
 
 import { GuessProperty, combineGuessPropertyLabels } from "@/app/types";
-import { Inter } from "next/font/google";
+import { Coiny, Inter } from "next/font/google";
 
 const interHeavy = Inter({ weight: "500", subsets: ["latin"] });
 const interLight = Inter({ weight: "300", subsets: ["latin"] });
+const coiny = Coiny({ weight: "400", subsets: ["latin"] });
 
 export default function AnswerReveal({
   correctAnswer,
@@ -20,19 +21,25 @@ export default function AnswerReveal({
   return (
     <div>
       {isCorrect ? (
-        <p className={`${interLight.className} text-green-500 text-lg`}>
+        <p className={`${coiny.className} text-green-500 text-2xl`}>
           Correct! The exact {combineGuessPropertyLabels[guessType]} was{" "}
-          <span className={interHeavy.className}>{correctAnswer}</span>.
+          <span className="border-double border-b-8 border-green-500">
+            {correctAnswer}
+          </span>
+          .
         </p>
       ) : (
-        <p className={`${interLight.className} text-red-500 text-lg`}>
+        <p className={`${coiny.className} text-red-500 text-2xl`}>
           Wrong! The correct {combineGuessPropertyLabels[guessType]} was{" "}
-          <span className={interHeavy.className}>{correctAnswer}</span>.
+          <span className="border-double border-b-8 border-red-500">
+            {correctAnswer}
+          </span>
+          .
         </p>
       )}
       <button
         type="submit"
-        className={`${interHeavy.className} mt-8 bg-pink-500 text-white text-xl font-medium py-3 px-6 rounded-full w-full`}
+        className={`${coiny.className} mt-8 bg-blue-500 text-white text-2xl font-medium py-3 px-6 rounded-full w-full`}
         onClick={onContinue}
       >
         Continue

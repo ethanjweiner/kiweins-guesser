@@ -96,7 +96,6 @@ export async function getPicRoundData(): Promise<PicRoundData> {
   const arrayBuffer = (await objectData.Body?.transformToByteArray())!.buffer;
   const exifData = EXIF.readFromBinaryFile(arrayBuffer);
 
-  // TODO: Ensure all photos have EXIF data
   if (!exifData || !exifData.DateTimeOriginal) {
     return getPicRoundData();
   }

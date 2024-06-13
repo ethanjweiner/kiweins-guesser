@@ -1,8 +1,11 @@
 import GuessTypeIndicator from "../components/FieldIndicator";
 import RoundInfo from "../components/RoundInfo";
 import { findGuessOption } from "@/app/utils/game";
-import { Quiz, Session } from "@/app/types";
+import { Quiz } from "@/app/types";
 import { getSession } from "@/app/utils/session";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 
 export default async function Game<Q extends Quiz>({
   children,
