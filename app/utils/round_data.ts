@@ -47,19 +47,19 @@ export function getBpmOptions(correctBpm: number): string[] {
 
   const options: string[] = [];
 
-  function generateIncorrectOption(bpm: number): number {
+  function generateIncorrectOption(correctBpm: number): number {
     const isHigher = Math.random() > 0.5;
-    const offset = Math.floor(Math.random() * 30) + 8;
-    const newBpm = isHigher ? bpm + offset : bpm - offset;
+    const offset = Math.floor(Math.random() * 40) + 5;
+    const newBpm = isHigher ? correctBpm + offset : correctBpm - offset;
 
     // Generate new options if the new bpm is too close to the correct bpm or any of the other options
     if (
       options.some(
         (option) =>
-          parseInt(option, 10) > newBpm - 8 && parseInt(option, 10) < newBpm + 8
+          parseInt(option, 10) > newBpm - 4 && parseInt(option, 10) < newBpm + 4
       )
     ) {
-      return generateIncorrectOption(bpm);
+      return generateIncorrectOption(correctBpm);
     }
 
     return newBpm;

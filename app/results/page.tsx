@@ -3,7 +3,14 @@ import Background from "../components/Background";
 import { getSession } from "../utils/session";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMusic, faPhotoFilm } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faEnvelope,
+  faMusic,
+  faPhotoFilm,
+} from "@fortawesome/free-solid-svg-icons";
+import { LetterModal } from "../games/components/LetterModal";
+import EnvelopeButton from "../games/components/EnvelopeButton";
 
 const interLight = Inter({ weight: "300", subsets: ["latin"] });
 
@@ -17,8 +24,8 @@ export default function Results() {
   return (
     <>
       <Background />
-      <div className="p-8 flex flex-col h-screen justify-center">
-        <div className="bg-white py-12 px-8 -mt-48 shadow-2xl w-full h-fit relative z-10 rounded-3xl">
+      <div className="p-8 h-screen ">
+        <div className="bg-white py-12 px-8 my-4 shadow-2xl w-full h-fit relative rounded-3xl">
           <h1 className="text-center text-4xl text-pink-600">Results</h1>
 
           <p className={`${interLight.className} text-lg mt-8`}>
@@ -39,16 +46,30 @@ export default function Results() {
           <div className="flex mt-4">
             <Link
               href="/games/tunes/play"
-              className="text-center bg-gradient-to-r text-2xl flex justify-center from-violet-600 to-violet-400 w-full text-white rounded-full px-4 py-4"
+              className="text-center bg-gradient-to-r text-2xl flex justify-center from-violet-600 to-violet-400 rounded-l-lg w-full text-white px-4 py-4"
             >
               <FontAwesomeIcon icon={faMusic} className="w-10" />
             </Link>
             <Link
               href="/games/pics/play"
-              className="text-center bg-gradient-to-r from-pink-600 text-2xl flex justify-center to-pink-400 text-white w-full rounded-full px-4 py-4 ml-4"
+              className="text-center bg-gradient-to-r from-pink-600 text-2xl flex justify-center to-pink-400 text-white rounded-r-lg w-full px-4 py-4 "
             >
               <FontAwesomeIcon icon={faPhotoFilm} className="w-10" />
             </Link>
+          </div>
+        </div>
+        <div className="relative mt-8">
+          <h1 className="text-2xl text-violet-500 drop-shadow-md text-center">
+            Open this for a surprise
+          </h1>
+          <div className="flex justify-center">
+            <FontAwesomeIcon
+              icon={faArrowDown}
+              className="text-xl text-violet-500 drop-shadow-md w-8 h-8 text-center mt-4"
+            />
+          </div>
+          <div className="flex justify-center">
+            <EnvelopeButton />
           </div>
         </div>
       </div>

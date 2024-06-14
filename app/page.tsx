@@ -1,10 +1,11 @@
 import { faMusic, faPhotoFilm } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { WelcomeModal } from "./games/components/WelcomeModal";
 
 export default function ChooseGame() {
   return (
-    <div className="flex flex-col h-screen w-full items-center justify-center">
+    <div className="flex flex-col h-dvh w-full items-center justify-center">
       <Link
         href="/games/tunes/play"
         className="flex h-full w-full items-center justify-center bg-gradient-to-r from-violet-600 to-violet-400 border-b-8 border-white"
@@ -21,6 +22,7 @@ export default function ChooseGame() {
           <FontAwesomeIcon icon={faPhotoFilm} className="w-20 md:w-40" />
         </div>
       </Link>
+      <WelcomeModal />
     </div>
   );
 }
