@@ -37,7 +37,7 @@ export function WelcomeModal() {
         <h1 className="text-4xl w-full text-center bg-gradient-to-r from-violet-600 to-pink-600 mb-4 inline-block text-transparent bg-clip-text">
           Kiwi Kwiz!
         </h1>
-        <p className={`${caveat.className} text-3xl mb-8`}>{text}</p>
+        <p className={`${caveat.className} text-2xl text-black mb-8`}>{text}</p>
         <button
           onClick={() => setIsOpen(false)}
           className="bg-violet-700 text-white text-xl mx-auto rounded py-3 px-6 shadow-lg"

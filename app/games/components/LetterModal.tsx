@@ -36,9 +36,13 @@ export function LetterModal({
       }}
     >
       <div className="p-2 relative">
-        <p className={`${caveat.className} text-3xl mb-8`}>{introduction}</p>
-        <p className={`${caveat.className} text-3xl mb-8`}>{text}</p>
-        <p className={`${caveat.className} text-3xl mb-8`}>{signOff}</p>
+        <p className={`${caveat.className} text-black text-3xl mb-8`}>
+          {introduction}
+        </p>
+        <p className={`${caveat.className} text-black text-3xl mb-8`}>{text}</p>
+        <p className={`${caveat.className} text-black text-3xl mb-8`}>
+          {signOff}
+        </p>
 
         <button
           onClick={() => setIsOpen(false)}

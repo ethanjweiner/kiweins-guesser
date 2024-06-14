@@ -49,7 +49,7 @@ export function getBpmOptions(correctBpm: number): string[] {
 
   function generateIncorrectOption(correctBpm: number): number {
     const isHigher = Math.random() > 0.5;
-    const offset = Math.floor(Math.random() * 40) + 5;
+    const offset = Math.floor(Math.random() * 42) + 6;
     const newBpm = isHigher ? correctBpm + offset : correctBpm - offset;
 
     // Generate new options if the new bpm is too close to the correct bpm or any of the other options
